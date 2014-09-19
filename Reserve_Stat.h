@@ -19,7 +19,9 @@ public :
 class Reserve_Stat {
 	Reserve_Entry* reserve_station;
 	int no_entries;
-	public : 
-		Reserve_Stat(int no);
-		bool poll_arf(int x);
+public : 
+	Reserve_Stat(int no);
+	bool poll_rrf(int x);
 }
+
+#endif

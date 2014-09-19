@@ -19,3 +19,5 @@ class RRF {
 		RRF(int no);
 		bool check_entry_arf();
 }
+
+#endif

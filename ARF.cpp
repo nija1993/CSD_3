@@ -1,6 +1,6 @@
 /* Definition of Architechture Register File */
 
-#include "RRF.h"
+#include "ARF.h"
 #include <iostream>
 
 using namespace std;
@@ -12,7 +12,9 @@ void ARF_Entry::ARF_Entry(int offs, int tag){
 	value = 0;
 }
 
-void 
+void ARF_Entry::commit(uint64_t value){
+	this.value = value;
+}
 
 void ARF::ARF(int no){
 	no_entries = no;

@@ -18,3 +18,5 @@ class ARF {
 public : 
 	void ARF(int no);
 }
+
+#endif

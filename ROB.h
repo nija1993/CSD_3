@@ -15,3 +15,5 @@ class ROB{
 public :
 	ROB(int no);
 }
+
+#endif

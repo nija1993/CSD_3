@@ -12,6 +12,10 @@ RRF_Entry::RRF_Entry(int offs, int arf_e){
 	valid = false;
 }
 
+void RRF_Entry::commit(uint64_t value){
+	this.value = value;
+}
+
 RRF::RRF(int no){
 	no_entries = no;
 	rrf = (RRF_Entry*)malloc(no * sizeof(RRF_Entry));
