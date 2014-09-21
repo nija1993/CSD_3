@@ -13,6 +13,8 @@ void ROB_Entry::ROB_Entry(int rrf_t){
 
 void ROB::ROB(int no){
 	no_entries = no;
+	head = 0;
+	tail = 0;
 	ROB = (ROB_Entry*)malloc(no * sizeof(ROB_Entry));
 }
 

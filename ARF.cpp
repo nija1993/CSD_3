@@ -1,7 +1,6 @@
 /* Definition of Architechture Register File */
 
 #include "ARF.h"
-#include <iostream>
 
 using namespace std;
 

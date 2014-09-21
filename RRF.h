@@ -10,7 +10,7 @@ class RRF_Entry {
 public :
 	RRF_Entry(int offs, int arf_e);
 	void commit(uint64_t value); 
-}
+};
 
 class RRF {
 	RRF_Entry* rrf;
@@ -18,6 +18,6 @@ class RRF {
 	public : 
 		RRF(int no);
 		bool check_entry_arf();
-}
+};
 
 #endif

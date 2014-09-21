@@ -4,16 +4,17 @@
 #define ROB_H
 
 class ROB_Entry{
+public :	
 	int rrf_tag;
 	bool exec_status, valid;
-public :	
 	void ROB_Entry(int rrf_t);
-}
+};
 
 class ROB{
-	ROB_Entry* ROB;
 public :
+	ROB_Entry* ROB;
+	int no_entries, head, tail;
 	ROB(int no);
-}
+};
 
 #endif
