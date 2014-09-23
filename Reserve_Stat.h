@@ -2,7 +2,7 @@
 
 #ifndef RESERVE_STAT_H  
 #define RESERVE_STAT_H
-
+#include <stdint.h>
 #define ADD 1
 #define SUB 2
 #define MUL 3

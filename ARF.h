@@ -3,6 +3,8 @@
 #ifndef ARF_H  
 #define ARF_H
 
+#include <stdint.h>
+
 class ARF_Entry {
 	bool busy;
 	int offset, tag;
@@ -16,7 +18,7 @@ class ARF {
 	ARF_Entry* arf;
 	int no_entries;
 public : 
-	void ARF(int no);
+	ARF(int no);
 };
 
 #endif
