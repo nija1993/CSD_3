@@ -14,7 +14,7 @@ RRF_Entry::RRF_Entry(int offs, int arf_e){
 }
 
 void RRF_Entry::commit(uint64_t value){
-	this->value = value;
+	this.value = value;
 }
 
 RRF::RRF(int no){

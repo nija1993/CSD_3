@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <iostream>
-#include <string>
 #include "ALU.h"
 #include "ARF.h"
 #include "RRF.h"

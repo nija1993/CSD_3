@@ -2,7 +2,6 @@
 
 #ifndef RRF_H  
 #define RRF_H
-#include <stdint.h>
 
 class RRF_Entry {
 	bool busy, valid;
