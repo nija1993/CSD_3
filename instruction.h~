@@ -1,0 +1,12 @@
+#ifndef INSTRUCTION_H
+#define INSTRUCTION_H
+
+class Instruction {
+public:
+	int inst_num;
+	int op_code;
+	char op1[3][15];
+	Instruction(char* line, int num);
+};
+
+#endif

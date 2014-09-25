@@ -20,7 +20,7 @@ class Reserve_Stat {
 	int no_entries;
 public : 
 	Reserve_Stat(int no);		// constructor
-	void add_entry(Instruction );		// To add entry to reservation station
+	void add_entry(Reserve_Entry );		// To add entry to reservation station
 	bool array_status();		// returns if the resevation status has vacancy or not
 	bool poll_rrf(int );			// polls rrf to
 	bool busy();				// returns if the resevation station is busy

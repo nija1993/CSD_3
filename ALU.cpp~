@@ -6,7 +6,7 @@ ALU_unit::ALU_unit() {
 	result = 0;
 }
 
-void ALU_unit::load_operands(int op, int op1, int op2, int* op_c){
+void ALU_unit::load_operands(int op, int op1, int op2, int[] op_c){
 	op_cycles = op_c;
 	this->op = op;
 	this->op1 = op1;

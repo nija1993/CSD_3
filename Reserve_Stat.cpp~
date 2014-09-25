@@ -30,7 +30,7 @@ Reserve_Stat::Reserve_Stat(int no){
 
 /* To add entries to reservation station */
 void Reserve_Stat::add_entry(Instruction inst){
-	//jugad
+	
 	reserve_station[first_unocc] = entry;
 	first_unocc++;
 }

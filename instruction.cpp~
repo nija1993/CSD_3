@@ -1,0 +1,65 @@
+/* Definition of instruction */
+
+#include "instruction.h"
+#include "global.h"
+
+Instruction::Instruction(char* line, int num){
+	inst_num = num;
+	int i = 0, k = 0;
+	char str[10];
+	switch(line[0]){
+		case 'A':
+			if(line[1] == 'D')
+				op_code = op_cycles[ADD];
+			else
+				op_code = op_cycles[AND];
+			i = 3;
+			break;
+		case 'S':
+			if(line[1] == 'U'){
+				op_code = op_cycles[SUB];
+				i = 3;
+			else{
+				op_code = op_cycles[STORE];
+				i = 5;
+			}
+			break;
+		case 'M':
+			op_code = op_cycles[MUL];
+			i = 3;
+			break;
+		case 'D':
+			op_code = op_cycles[DIV];
+			i = 3;
+			break;
+		case 'O':
+			op_code = op_cycles[OR];
+			i = 2;
+			break;
+		case 'X':
+			op_code = op_cycles[XOR];
+			i = 3;
+			break;
+		case 'L':
+			op_code = op_cycles[LOAD];
+			i = 4;
+			break;
+	}
+	int x = 0;
+	while(line[i] != '\0'){
+		k = 0;
+		i++;
+		while(line[i] != ' ' && line[i] != '\0'){
+			oper[x][k] = line[i];
+			i++;
+			k++;
+		}
+		x++;
+	}
+}
+
+
+
+
+
+

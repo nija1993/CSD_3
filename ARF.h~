@@ -12,6 +12,7 @@ class ARF_Entry {
 public :
 	ARF_Entry();
 	void commit(uint64_t value); 
+	void add_entry(Instruction inst); 
 };
 
 class ARF {
