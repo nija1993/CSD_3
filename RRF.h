@@ -4,24 +4,25 @@
 #define RRF_H
 #include <stdint.h>
 
+/* Final commit is committing from RRF to ARF */
 class RRF_Entry {
-	bool busy, valid;
-	int arf_entry;
-	uint64_t value;
 public :
-	RRF_Entry(int arf_e);
-	void commit(uint64_t value); 
+	bool busy, valid;
+	uint64_t value;
+	RRF_Entry();
 };
 
 class RRF {
-	RRF_Entry* rrf;
 	int no_entries;
 	int no_occ; 
-	public : 
+	public :
+		RRF_Entry* rrf; 
 		RRF(int no);
 		bool file_status();
 		bool check_entry_arf();
-		int add_entry(int);
+		int add_entry();
+		void update(int index, uint64_t result);
+		void print();
 };
 
 #endif

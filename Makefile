@@ -1,7 +1,7 @@
 CC = g++
 OFLAGS = -Wall
 CFLAGS = -c
-SOURCES = ARF.cpp Reserve_Stat.cpp ALU.cpp ROB.cpp RRF.cpp inst.cpp Main.cpp
+SOURCES = ARF.cpp Reserve_Stat.cpp ALU.cpp ROB.cpp RRF.cpp inst.cpp Store_Q.cpp Main.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 ECOMMANDS = -shared -Wl,--hash-style=sysv -Wl,-Bsymbolic -Wl,--version-script=pin-2.13-65163-gcc.4.4.7-linux/source/include/pin/pintool.ver
 EXECUTABLE = final

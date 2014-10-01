@@ -11,6 +11,7 @@ extern int op_cycles[9];
 Instruction::Instruction(char* line, int num){
 	inst_num = num;
 	int i = 0, k = 0;
+	oper[2][0] = '\0';
 	switch(line[0]){
 		case 'A':
 			if(line[1] == 'D')
@@ -51,6 +52,8 @@ Instruction::Instruction(char* line, int num){
 			break;
 	}
 	int x = 0;
+	if(op_code == STORE)
+		x++;
 	while(line[i] != '\0'){
 		k = 0;
 		i++;
