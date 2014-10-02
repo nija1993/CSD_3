@@ -49,7 +49,7 @@ bool RRF::file_status(){
 }
 
 void RRF::print(){
-	cout << "-------------------------------------RRF-------------------------------------------------\n";
+	cout << "----------------------------------RRF----------------------------------\n";
 	cout << "index valid status value" << endl;
 	for(int i = 0; i < no_entries; i++){
 		cout << "| " << i << "\t" << rrf[i].valid << "\t" << rrf[i].busy << "\t" << rrf[i].value << "\t|" << endl;

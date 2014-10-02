@@ -72,7 +72,6 @@ bool fetch_inst(){
 }
 
 /* Decoding the instruction, and placing in ARF and RRF */
-// Size of reservation station and RRF will always be same ? 
 void decode_inst(int inst_num){
 	Instruction* inst = new Instruction(curr_inst, inst_num);
 	int result_tag;
@@ -190,7 +189,7 @@ int check_store_inRS() {
 		if(entry.op_code == STORE && entry.valid && entry.src1_tag == 0 && entry.src2_tag == 0){
 			for(int j = 0; j < no_reserve; j++){
 				Reserve_Entry en = reserve_stat->reserve_station[j];
-				if(en.op_code == STORE && (entry.inst_num > en.inst_num) && (en.src1_tag != 0  || en.src2_tag != 0  || en.src1_value == entry.src1_value)) {
+				if(en.op_code == STORE && !entry.valid && (entry.inst_num > en.inst_num) && (en.src1_tag != 0  || en.src2_tag != 0  || en.src1_value == entry.src1_value)) {
 					flag = true;
 					break;
 				}
@@ -228,7 +227,7 @@ int main(int argc, char** argv){
 	bool value_valid = false;
 	uint64_t result;
 	while(1){
-		cout << "cycles " << total_cycles << endl;
+		// cout << "cycles " << total_cycles << endl;
 		
 		// Commit ROB
 		commit_inst();
@@ -250,7 +249,7 @@ int main(int argc, char** argv){
 		//Load unit takes over, only to check if store queue has value for load instruction ready to be executed
 		if(load_unit_cycles == -1){
 			index_load = check_load_inRS();
-			cout << "check load : " << index_load << endl;
+			//cout << "check load : " << index_load << endl;
 			if(index_load != -1){
 				//load_unit_cycles = op_cycles[LOAD-1];
 				Reserve_Entry entry = reserve_stat->reserve_station[index_load]; 
@@ -267,17 +266,19 @@ int main(int argc, char** argv){
 				store queue becomes full, then store gets more priority over load */
 		while(store_q->check_vacancy()){
 			index_store = check_store_inRS();
+		//	cout << "calling this" << endl;
 			if(index_store == -1)
 				break;
 			Reserve_Entry entry = reserve_stat->reserve_station[index_store];
 			store_q->add_entry(entry.inst_num, entry.src1_value, entry.src2_value);
 			reserve_stat->reserve_station[index_store].valid = false;
+			reserve_stat->set_first_unocc(index_store);
 			reorder_buff->set_exec_inst_done(entry.inst_num);
 		}
 		
 		/* All store instructions ready to be committed are in the queue */
 		bool schedule_store = false;
-		if(index_store == -1){
+		if(index_store == -1 && memory_accessed == false){
 			if(load_unit_cycles == -1){
 				if(index_load != -1){
 					// schedule load instruction
@@ -321,6 +322,14 @@ int main(int argc, char** argv){
 			reorder_buff->set_exec_done(rrf_reg2);
 		}
 		
+		
+		if(load_unit_cycles != -1){
+			load_unit_cycles--;
+		}
+		if(store_unit_cycles != -1){
+			store_unit_cycles--;
+		}
+		
 		//Load commit
 		if(load_unit_cycles == 0) {
 			Reserve_Entry entry = reserve_stat->reserve_station[index_load];
@@ -337,44 +346,38 @@ int main(int argc, char** argv){
 			load_unit_cycles = -1;
 			memory_accessed = false;
 		}
-		
 		//Store commit
 		if(store_unit_cycles == 0) {
 			memory_accessed = false;
 			memory[s_entry.address] = s_entry.value;
 			store_unit_cycles = -1;
 		}
-		
-		if(load_unit_cycles != -1){
-			load_unit_cycles--;
-		}
-		if(store_unit_cycles != -1){
-			store_unit_cycles--;
-		}
+		//cout << "memory accessed " << memory_accessed << " store_unit_cycles " << store_unit_cycles << endl;
 		
 		//Decode instruction 
 		if(fetched){
 			inst_num++;
 			decode_inst(inst_num);
-		//	cout << "decoded " << endl;
+			cout << "decoded " << endl;
 			fetched = false;
 		}
-		reserve_stat->print();
-		rrf->print();
-		arf->print();
+		//reserve_stat->print();
+		//rrf->print();
+		//arf->print();
 		reorder_buff->print();
 		store_q->print();
-		
+		cout << "=============================================================" << endl;
 		//Fetch instruction
 		if(reserve_stat->array_status() && reorder_buff->queue_status() && rrf->file_status()){
 			fetched = fetch_inst();
 		}
 		total_cycles++;
-		cout << reserve_stat->busy() << reorder_buff->busy() << fetched << store_q->busy() << memory_accessed << endl;
+		cout << "end of cycle no : " << total_cycles << endl;
+		//cout << reserve_stat->busy() << reorder_buff->busy() << fetched << store_q->busy() << memory_accessed << endl;
 		if(!reserve_stat->busy() && !reorder_buff->busy() && !fetched && !store_q->busy() && !memory_accessed){
 			break;
 		}
-//		if(total_cycles == 15)
+//		if(total_cycles == 100)
 //			break;
 	}
 	cout << "no. of cycles : " << total_cycles << endl;

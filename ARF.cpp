@@ -22,7 +22,7 @@ ARF::ARF(int no){
 }
 
 void ARF::print(){
-	cout << "-------------------------------------ARF----------------------------------------------\n";
+	cout << "---------------------------ARF-----------------------------------\n";
 	cout << "index status tag value" << endl;
 	for(int i = 0; i < no_entries; i++){
 		cout << "| " << i << "\t" << arf[i].busy << "\t" << arf[i].tag << "\t" << arf[i].value << "\t|" << endl;

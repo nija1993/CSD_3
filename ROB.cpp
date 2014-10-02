@@ -23,11 +23,11 @@ ROB::ROB(int no){
 
 void ROB::add_entry(int rrf_t, int inst_n){
 	tail--;
+	if(tail < 0)
+		tail = no_entries-1;
 	rob[tail] = ROB_Entry(rrf_t, inst_n);
 	rob[tail].valid = true;
 	rob[tail].exec_status = true;
-	if(tail < 0)
-		tail = no_entries-1;
 }
 
 /* Returns true if the queue has vacancy */

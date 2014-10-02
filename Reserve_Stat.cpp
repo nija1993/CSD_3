@@ -136,10 +136,10 @@ bool Reserve_Stat::busy(){
 }
 
 void Reserve_Stat::print() {
-	cout << "--------------------------Reserve_Station------------------------------------\n";
-	cout << "index valid opcode dest, src1, value1, src2, value2, status" << endl;
+	cout << "------------------------Reserve_Station---------------------------\n";
+	cout << "insno valid opcode dest, src1, value1, src2, value2, status" << endl;
 	for(int i = 0; i < no_entries; i++) {
-		cout << i << "\t" << reserve_station[i].valid << "\t" << reserve_station[i].op_code << "\t" << reserve_station[i].dest_tag << "\t" << reserve_station[i].src1_tag << "\t" << reserve_station[i].src1_value << "\t" << reserve_station[i].src2_tag << "\t" << reserve_station[i].src2_value << "\t" << reserve_station[i].exec_status << "\t" << endl;
+		cout << reserve_station[i].inst_num << "\t" << reserve_station[i].valid << "\t" << reserve_station[i].op_code << "\t" << reserve_station[i].dest_tag << "\t" << reserve_station[i].src1_tag << "\t" << reserve_station[i].src1_value << "\t" << reserve_station[i].src2_tag << "\t" << reserve_station[i].src2_value << "\t" << reserve_station[i].exec_status << "\t" << endl;
 	}
 }
 
