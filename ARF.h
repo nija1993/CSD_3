@@ -20,6 +20,7 @@ public :
 	int no_entries;
 	ARF(int no);
 	void print();
+	void init_regs(int* input);
 };
 
 #endif

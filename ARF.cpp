@@ -29,4 +29,15 @@ void ARF::print(){
 	}
 }
 
+void ARF::init_regs(int* input){
+	for(int i = 0; i < no_entries; i++){
+		arf[i].value = input[i];
+	}
+}
+
+
+
+
+
+
 

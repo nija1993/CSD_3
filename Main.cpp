@@ -163,8 +163,11 @@ void commit_inst(){
 
 /* Initialize the ARF registers */
 void initialize_regs(){
+	int* input;
+	input = (int*)malloc(no_rrf*sizeof(int));
 	for(int i = 0; i < no_arf; i++)
-		arf->arf[i].value = 0;
+		input[i] = i;
+	arf->init_regs(input);
 }
 
 int check_load_inRS(){
@@ -314,15 +317,12 @@ int main(int argc, char** argv){
 			reserve_stat->update(rrf_reg1, result);
 			reorder_buff->set_exec_done(rrf_reg1);
 		}
-		
 		if(s2 == 0){
 			result = ALU[1]->get_result();
 			rrf->update(rrf_reg2, result);
 			reserve_stat->update(rrf_reg2, result);
 			reorder_buff->set_exec_done(rrf_reg2);
 		}
-		
-		
 		if(load_unit_cycles != -1){
 			load_unit_cycles--;
 		}
@@ -377,8 +377,8 @@ int main(int argc, char** argv){
 		if(!reserve_stat->busy() && !reorder_buff->busy() && !fetched && !store_q->busy() && !memory_accessed){
 			break;
 		}
-//		if(total_cycles == 100)
-//			break;
+		if(total_cycles == 20)
+			break;
 	}
 	cout << "no. of cycles : " << total_cycles << endl;
 	return 0;
