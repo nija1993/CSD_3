@@ -76,6 +76,7 @@ bool decode_inst(int inst_num){
 	Instruction* inst = new Instruction(curr_inst, inst_num);
 	int result_tag;
 	int temp_tag;
+	cout << "hello brother " << reorder_buff->queue_status() << reserve_stat->array_status() << rrf->file_status() << endl;
 	if(!reorder_buff->queue_status() || !reserve_stat->array_status() || !rrf->file_status())
 		return false;
 	if(inst->op_code != STORE)
@@ -286,8 +287,10 @@ int main(int argc, char** argv){
 		/* All store instructions ready to be committed are in the queue */
 		bool schedule_store = false;
 		if(index_store == -1 && memory_accessed == false){	
+			cout << "u fucker, get inside !!!" << endl;
 			if(load_unit_cycles == -1){
 				if(index_load != -1){
+					cout << "u fucker, get outside !!!" << endl;
 				// schedule load instruction
 					if(!memory_accessed){
 						load_unit_cycles = op_cycles[LOAD-1];
@@ -337,21 +340,22 @@ int main(int argc, char** argv){
 		if(store_unit_cycles != -1){
 			store_unit_cycles--;
 		}
-		
+		cout << "printing load cycles : " << load_unit_cycles << endl;
 		//Load commit
 		if(load_unit_cycles == 0) {
 			Reserve_Entry entry = reserve_stat->reserve_station[index_load];
-			cout << "value valid : " << value_valid << "address : " << entry.src1_value << endl;
+			//cout << "value valid : " << value_valid << "address : " << entry.src1_value << endl;
 			if(value_valid){
 				value_valid = false;
 			}
 			else{
 				value = memory[entry.src1_value];
-				memory_accessed = true;
+				cout << "memory fucker " << endl;
+				memory_accessed = false;
 			}
 			rrf->update(entry.dest_tag, value);
 			reserve_stat->update(entry.dest_tag, value);
-			cout << "call this fucker " << endl;
+			//cout << "call this fucker " << endl;
 			reorder_buff->set_exec_done(entry.dest_tag);
 			load_unit_cycles = -1;
 		}
@@ -372,7 +376,7 @@ int main(int argc, char** argv){
 			fetched = false;
 		}
 		reserve_stat->print();
-		//rrf->print();
+		rrf->print();
 		//arf->print();
 		reorder_buff->print();
 		store_q->print();
@@ -384,11 +388,12 @@ int main(int argc, char** argv){
 		total_cycles++;
 		cout << "end of cycle no : " << total_cycles << " store_unit_cycles : " << store_unit_cycles << endl;
 		//cout << reserve_stat->busy() << reorder_buff->busy() << fetched << store_q->busy() << memory_accessed << endl;
-		if(!reserve_stat->busy() && !reorder_buff->busy() && !fetched && !store_q->busy() && !memory_accessed){
+		if(!reserve_stat->busy() && !reorder_buff->busy() && !fetched && !store_q->busy() && !memory_accessed && 
+					!rrf->busy()){
 			break;
 		}
-//		if(total_cycles == 30)
-//			break;
+		if(total_cycles == 200)
+			break;
 	}
 	cout << "no. of cycles : " << total_cycles << endl;
 	return 0;

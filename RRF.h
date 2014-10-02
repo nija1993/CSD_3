@@ -23,6 +23,7 @@ class RRF {
 		int add_entry();
 		void update(int index, uint64_t result);
 		void print();
+		bool busy();
 };
 
 #endif

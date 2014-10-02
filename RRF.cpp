@@ -42,10 +42,10 @@ void RRF::update(int index, uint64_t result){
 
 /* Returns false if there is no vacancy in rrf */
 bool RRF::file_status(){
-	if(no_occ == no_entries)
-		return false;
-	else
-		return true;
+	for(int i = 0; i < no_entries; i++)
+		if(!rrf[i].valid)
+			return true;
+	return false;
 }
 
 void RRF::print(){
@@ -54,6 +54,14 @@ void RRF::print(){
 	for(int i = 0; i < no_entries; i++){
 		cout << "| " << i << "\t" << rrf[i].valid << "\t" << rrf[i].busy << "\t" << rrf[i].value << "\t|" << endl;
 	}
+}
+
+bool RRF::busy(){
+	for(int i = 0; i < no_entries; i++){
+		if(rrf[i].valid)
+			return true;
+	}
+	return false;
 }
 
 
