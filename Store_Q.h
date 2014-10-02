@@ -8,6 +8,7 @@ public:
 	bool valid;
 	int address;
 	int value;
+	bool to_set_complete;
 	Store_Q_Entry();
 };
 
@@ -23,6 +24,7 @@ public:
 	int remove_least_completed();
 	void print();
 	bool busy();
+	void set_complete();
 };
 
 #endif

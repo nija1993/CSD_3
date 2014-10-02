@@ -32,7 +32,7 @@ void ROB::add_entry(int rrf_t, int inst_n){
 
 /* Returns true if the queue has vacancy */
 bool ROB::queue_status(){
-	if(head == (tail-1) % no_entries && tail != no_entries)
+	if(head == (tail+no_entries-1) % no_entries && tail != no_entries)
 		return false;
 	else
 		return true;
@@ -69,9 +69,9 @@ void ROB::print(){
 	cout << "-------------------------ROB---------------------------------\n";
 	if(head < tail)
 		head = head + no_entries;
-	cout << "inst_num exec_status rrf_tag" << endl;
+	cout << "index inst_num exec_status rrf_tag" << endl;
 	for(int i = head; i >= tail && tail != no_entries; i--){
-		cout << rob[i % no_entries].inst_num << "\t" << rob[i % no_entries].exec_status << "\t" << rob[i % no_entries].rrf_tag << endl;
+		cout << i << "\t" << rob[i % no_entries].inst_num << "\t" << rob[i % no_entries].exec_status << "\t" << rob[i % no_entries].rrf_tag << endl;
 	}
 	head = head % no_entries;
 	

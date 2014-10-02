@@ -10,6 +10,7 @@ Store_Q_Entry::Store_Q_Entry() {
 	value = 0;
 	valid = false;
 	completed = false;
+	to_set_complete = false;
 }
 
 Store_Q::Store_Q(int no) {
@@ -89,7 +90,14 @@ void Store_Q::print() {
 	}
 }
 
-
+void Store_Q::set_complete(){
+	for(int i = 0; i < no_entries; i++){
+		if(store[i].valid && store[i].to_set_complete){
+			store[i].completed = true;
+			store[i].to_set_complete = false;
+		}
+	}
+}
 
 
 
